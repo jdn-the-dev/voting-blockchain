@@ -2,7 +2,7 @@
 
 ```bash
 # 1 · Clone the project
-git clone 
+git clone https://github.com/jdn-the-dev/voting-blockchain.git
 cd hash-voting
 
 # 2 · Install dependencies
