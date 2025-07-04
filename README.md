@@ -1,4 +1,4 @@
-## 🚀  Quick Start
+## Quick Start
 
 ```bash
 # 1 · Clone the project
