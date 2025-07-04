@@ -3,7 +3,7 @@
 ```bash
 # 1 · Clone the project
 git clone https://github.com/jdn-the-dev/voting-blockchain.git
-cd hash-voting
+cd voting-blockchain
 
 # 2 · Install dependencies
 npm install          # or: yarn / pnpm / bun install
