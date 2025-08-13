@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+
 type Block = {
   index: number;
   timestamp: string;
@@ -15,6 +16,8 @@ export default function Home() {
   const [chain, setChain] = useState<Block[]>([]);
   const [chainValid, setChainValid] = useState<boolean>(true);
   const [isVoting, setIsVoting] = useState<boolean>(false);
+
+  const credit = process.env.NEXT_PUBLIC_PROJECT_CREDIT;
 
   const submitVote = async () => {
     if (!candidate.trim()) {
@@ -54,6 +57,12 @@ export default function Home() {
 
   return (
     <div style={styles.container}>
+      <div style={{ marginBottom: "16px", color: "#666", fontSize: "1rem", textAlign: "center" }}>
+        <em>
+          {credit}
+        </em>
+      </div>
+
       <h1 style={styles.title}>Blockchain Voting System</h1>
 
       <div style={styles.inputContainer}>
@@ -81,27 +90,35 @@ export default function Home() {
 
       <h2 style={styles.subtitle}>Current Votes</h2>
       <div style={styles.grid}>
-        {Object.entries(votes).map(([name, count]) => (
-          <div key={name} style={styles.card}>
-            <h3>{name}</h3>
-            <p>
-              {count} vote{count !== 1 ? "s" : ""}
-            </p>
-          </div>
-        ))}
+        {votes && typeof votes === "object" && Object.entries(votes).length > 0 ? (
+          Object.entries(votes).map(([name, count]) => (
+            <div key={name} style={styles.card}>
+              <h3>{name}</h3>
+              <p>
+                {count} vote{count !== 1 ? "s" : ""}
+              </p>
+            </div>
+          ))
+        ) : (
+          <div style={styles.card}>No votes yet.</div>
+        )}
       </div>
 
       <h2 style={styles.subtitle}>Blockchain Data</h2>
       <div style={styles.chain}>
-        {chain.map((block) => (
-          <div key={block.hash} style={styles.block}>
-            <p><strong>Block:</strong> {block.index}</p>
-            <p><strong>Timestamp:</strong> {new Date(Number(block.timestamp)).toLocaleString()}</p>
-            <p><strong>Data:</strong> {block.data.isGenesis ? "Genesis Block" : block.data.candidate}</p>
-            <p><strong>Previous Hash:</strong><br /> {block.previousHash}</p>
-            <p><strong>Hash:</strong><br /> {block.hash}</p>
-          </div>
-        ))}
+        {Array.isArray(chain) && chain.length > 0 ? (
+          chain.map((block) => (
+            <div key={block.hash} style={styles.block}>
+              <p><strong>Block:</strong> {block.index}</p>
+              <p><strong>Timestamp:</strong> {new Date(Number(block.timestamp)).toLocaleString()}</p>
+              <p><strong>Data:</strong> {block.data.isGenesis ? "Genesis Block" : block.data.candidate}</p>
+              <p><strong>Previous Hash:</strong><br /> {block.previousHash}</p>
+              <p><strong>Hash:</strong><br /> {block.hash}</p>
+            </div>
+          ))
+        ) : (
+          <div style={styles.block}>No blocks yet.</div>
+        )}
       </div>
 
       <h3 style={styles.integrity}>
