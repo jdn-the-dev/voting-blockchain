@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { votingBlockchain, Block } from "../lib/blockchain";
+import { votingBlockchain, Block } from "@/lib/blockchain";
 // Firebase imports
 import { initializeApp, getApps } from "firebase/app";
 import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
